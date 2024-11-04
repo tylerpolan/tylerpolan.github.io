@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Viewer - Tyler Polan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navigation {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navigation a {
+            color: #333;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #e9ecef;
+        }
+
+        .document-title {
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        .pdf-container {
+            width: 100%;
+            height: 800px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .document-controls {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .download-button {
+            background-color: #2ea44f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .download-button:hover {
+            background-color: #2c974b;
+        }
+
+        .document-info {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .fallback-message {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .pdf-container {
+                height: 500px;
+            }
+
+            .document-controls {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navigation">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#cv">CV</a>
+            </div>
+        </nav>
+
+        <h1 class="document-title">Document Title</h1>
+
+        <div class="document-controls">
+            <div class="document-info">
+                Last updated: <span id="lastUpdated">January 1, 2024</span>
+            </div>
+            <a href="path-to-your-pdf.pdf" class="download-button" download>
+                Download PDF
+            </a>
+        </div>
+
+        <div class="pdf-container">
+            <iframe class="pdf-embed" src="path-to-your-pdf.pdf#toolbar=0" type="application/pdf">
+                <div class="fallback-message">
+                    <p>It seems your browser doesn't support embedded PDFs.</p>
+                    <p>You can <a href="path-to-your-pdf.pdf" download>download the PDF</a> to view it.</p>
+                </div>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // Check if PDF embedding is supported
+        function checkPdfSupport() {
+            const iframe = document.querySelector('.pdf-embed');
+            const fallbackMessage = document.querySelector('.fallback-message');
+            
+            if (iframe.contentDocument && iframe.contentDocument.body.scrollHeight === 0) {
+                iframe.style.display = 'none';
+                fallbackMessage.style.display = 'block';
+            }
+        }
+
+        // Run check after page loads
+        window.onload = checkPdfSupport;
+    </script>
+</body>
+</html>
